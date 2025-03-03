@@ -7,6 +7,7 @@ from database import get_db, MovieModel
 
 router = APIRouter()
 
+
 @router.get("/movies/{movie_id}/", response_model=MovieDetailReponseSchema)
 async def get_movie(movie_id: int, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(MovieModel).where(MovieModel.id == movie_id))
@@ -14,6 +15,7 @@ async def get_movie(movie_id: int, db: AsyncSession = Depends(get_db)):
     if not movie:
         raise HTTPException(status_code=404, detail="Movie not found")
     return movie
+
 
 @router.get("/movies/", response_model=MovieListResponseSchema)
 async def get_movies(page: int = 1, per_page: int = 5, db: AsyncSession = Depends(get_db)):
@@ -25,7 +27,7 @@ async def get_movies(page: int = 1, per_page: int = 5, db: AsyncSession = Depend
     next_page = f"/movies/?page={page+1}&per_page={per_page}" if page < total_pages else None
     if page > total_pages:
         raise HTTPException(status_code=404, detail="Page not found")
-    movies = movies[(page-1)*per_page:page*per_page]
+    movies = movies[(page - 1) * per_page : page * per_page]
     return {
         "movies": movies,
         "prev_page": prev_page,
