@@ -3,7 +3,7 @@ from typing import Optional
 from datetime import datetime
 
 
-class MovieDetailReponseSchema(BaseModel):
+class MovieDetailResponseSchema(BaseModel):
     id: int
     name: str
     date: datetime.date
@@ -23,7 +23,7 @@ class MovieDetailReponseSchema(BaseModel):
 
 
 class MovieListResponseSchema(BaseModel):
-    movies: list[MovieDetailReponseSchema]
+    movies: list[MovieDetailResponseSchema]
     prev_page: Optional[str]
     next_page: Optional[str]
     total_pages: int
