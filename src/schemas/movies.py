@@ -1,1 +1,2 @@
-# Write your code here
+from pydantic import BaseModel
+from typing import Optional
